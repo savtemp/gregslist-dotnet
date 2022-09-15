@@ -58,8 +58,31 @@ namespace gregslistFinal.Controllers
       }
     }
 
-    // [HttpPut("{id}")]
+    [HttpPut("{id}")]
+    public ActionResult<Car> Update(int id, [FromBody] Car update)
+    {
+      try
+      {
+        update.Id = id;
+        return Ok(_carsService.Update(update));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e);
+      }
+    }
 
-    // [HttpDelete("{id}")]
+    [HttpDelete("{id}")]
+    public ActionResult<string> Delete(int id)
+    {
+      try
+      {
+        return Ok(_carsService.Delete(id));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e);
+      }
+    }
   }
 }

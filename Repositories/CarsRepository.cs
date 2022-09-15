@@ -48,5 +48,34 @@ namespace gregslistFinal.Repositories
       newCar.Id = id;
       return newCar;
     }
+
+    internal Car Update(Car carData)
+    {
+      string sql = @"
+      UPDATE cars SET
+        make = @make,
+        model = @model,
+        year = @year,
+        price = @price,
+        imgUrl = @imgUrl,
+        description = @description,
+        color = @color
+      WHERE id = @id;
+      ";
+      int rowsAffected = _db.Execute(sql, carData);
+      if (rowsAffected == 0)
+      {
+        throw new Exception("unable to edit car");
+      }
+      return carData;
+    }
+
+    internal void Delete(int id)
+    {
+      string sql = @"
+      DELETE FROM cars WHERE id = @id;
+      ";
+      _db.Execute(sql, new { id });
+    }
   }
 }

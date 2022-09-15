@@ -35,5 +35,25 @@ namespace gregslistFinal.Services
     {
       return _carRepo.Create(newCar);
     }
+
+    internal Car Update(Car update)
+    {
+      Car original = GetById(update.Id);
+      original.Make = update.Make ?? original.Make;
+      original.Model = update.Model ?? original.Model;
+      original.Year = update.Year ?? original.Year;
+      original.Price = update.Price ?? original.Price;
+      original.ImgUrl = update.ImgUrl ?? original.ImgUrl;
+      original.Description = update.Description ?? original.Description;
+      original.Color = update.Color ?? original.Color;
+      return _carRepo.Update(original);
+    }
+
+    internal string Delete(int id)
+    {
+      Car car = GetById(id);
+      _carRepo.Delete(id);
+      return $"Deleted the {car.Make} {car.Model}";
+    }
   }
 }
